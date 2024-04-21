@@ -42,7 +42,31 @@ const Register = () => {
             <div className={styles.auth__form}>
                 <input type="text" placeholder='ФИО' onChange={(e) => setName(e.target.value)} />
                 <input type="text" placeholder='Почта' onChange={(e) => setEmail(e.target.value)} />
-                <input type="text" placeholder='Район' onChange={(e) => setDisctrict(e.target.value)} />
+                <select name="Район" id="district" onChange={(e) => setDisctrict(e.target.value)}>
+                    <option value="Адмиралтейский">Адмиралтейский</option>
+                    <option value="Василеостровский">Василеостровский</option>
+                    <option value="Выборгский">Выборгский</option>
+                    <option value="Калининский">Калининский</option>
+                    <option value="Кировский">Кировский</option>
+
+                    <option value="Колпинский">Колпинский</option>
+                    <option value="Красногвардейский">Красногвардейский</option>
+                    <option value="Красносельский">Красносельский</option>
+                    <option value="Кронштадтский">Кронштадтский</option>
+                    <option value="Курортный">Курортный</option>
+
+                    <option value="Московский">Московский</option>
+                    <option value="Невский">Невский</option>
+                    <option value="Петроградский">Петроградский</option>
+                    <option value="Петродворцовый">Петродворцовый</option>
+                    <option value="Приморский">Приморский</option>
+
+                    <option value="Пушкинский">Пушкинский</option>
+                    <option value="Фрунзенский">Фрунзенский</option>
+                    <option value="Центральный">Центральный</option>
+                    <option value="Ленинградская область">Ленинградская область</option>
+                </select>
+                {/* <input type="text" placeholder='Район' onChange={(e) => setDisctrict(e.target.value)} /> */}
                 <input type="password" placeholder='Пароль' onChange={(e) => setPassword(e.target.value)} />
                 <button onClick={handleRegister}>Зарегистрировать</button>
                 <p>Имеется аккаунт? <Link className={styles.auth__form_link} href="/auth">Авторизоваться!</Link></p>

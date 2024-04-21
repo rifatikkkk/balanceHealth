@@ -8,6 +8,7 @@ import userRoute from './routes/userRoute.js'
 
 import cron from 'node-cron'
 import { checkMedbook } from './mailing/mailing.js'
+import { updateHospital } from './utils/updateHosptial.js'
 
 const app = express();
 
@@ -40,7 +41,8 @@ async function start() {
         console.log('Server connected with DataBase');
         // cron.schedule("0 0 0 * * *", () => {
         // })
-        // checkMedbook()
+        // updateHospital()
+        checkMedbook()
         app.listen(PORT, (req, res) => {
             // var url = req.headers.host + '/' + req.url;
             console.log("Server started on " + PORT);

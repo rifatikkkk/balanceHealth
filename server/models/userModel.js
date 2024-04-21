@@ -21,6 +21,10 @@ const UserSchema = new mongoose.Schema(
             type: Date,
             required: false,
         },
+        district: {
+            type: String,
+            required: true,
+        },
         avatar: {
             public_id: {
                 type: String,

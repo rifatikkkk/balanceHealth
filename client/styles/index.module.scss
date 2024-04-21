@@ -22,13 +22,14 @@ $color-brown: var(--color-brown);
                 font-size: 60px;
                 font-weight: 700;
                 text-align: center;
-                color: black;
+                color: $color-brown;
             }
 
             p {
                 font-size: 20px;
                 font-weight: 500;
                 color: black;
+                text-align: justify;
             }
         }
 

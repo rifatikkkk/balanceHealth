@@ -2,7 +2,7 @@ import User from "../models/userModel.js"
 import sendToken from '../utils/jwtToken.js'
 
 export const registerUser = async (req, res) => {
-    const { name, password, email } = req.body
+    const { name, password, email, district } = req.body
 
     const userSearch = await User.findOne({ email })
 
@@ -17,6 +17,7 @@ export const registerUser = async (req, res) => {
             name,
             password,
             email,
+            district
         })
         sendToken(user, 201, res)
     }

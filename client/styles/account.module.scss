@@ -1,3 +1,94 @@
 $color-background: var(--color-background);
 $color-soft: var(--color-soft);
 $color-brown: var(--color-brown);
+
+.account {
+
+    button {
+        border: 0px;
+        border-radius: 24px;
+        margin: auto;
+        cursor: pointer;
+        padding: 14px 26px;
+        color: #fff;
+        display: inline-block;
+        font-weight: bold;
+        font-size: 18px;
+        text-decoration: none;
+        background: $color-brown;
+    }
+
+    &__form {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+        align-items: center;
+        position: relative;
+
+        h1 {
+            font-size: 32px;
+            font-weight: 700;
+            text-align: center;
+            color: black;
+        }
+
+        p {
+            font-size: 20px;
+        }
+
+
+        &__medbook {
+            text-align: center;
+            max-width: 600px;
+            min-width: 400px;
+            margin-top: 26px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+
+            &_title {
+                text-align: left;
+            }
+
+            &__date {
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            &__content {
+                text-align: left;
+                display: flex;
+                flex-direction: column;
+                gap: 5px;
+
+                p {
+                    font-size: 18px;
+                }
+
+
+                input {
+                    border: 1px solid #bbb;
+                    padding: 10px 0 10px 10px;
+                    font-size: 20px;
+                    min-width: 400px;
+
+                    &:focus {
+                        border: 1px solid #3498db;
+                    }
+                }
+            }
+
+            &_send {
+                margin: auto;
+            }
+        }
+
+        &_link {
+            position: absolute;
+            right: 0;
+            top: 0;
+        }
+    }
+}

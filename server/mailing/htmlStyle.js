@@ -1,6 +1,7 @@
+import Hospital from "../models/hospitalModel.js"
 
-export const getHtmlStyle = (nameUser, nameField) => {
-    let htmlStyle = `<!DOCTYPE HTML
+export const getHtmlStyle = (nameUser, nameField, hospital) => {
+  let htmlStyle = `<!DOCTYPE HTML
     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional //EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
   <html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml"
     xmlns:o="urn:schemas-microsoft-com:office:office">
@@ -182,8 +183,8 @@ export const getHtmlStyle = (nameUser, nameField) => {
                                 style="overflow-wrap:break-word;word-break:break-word;padding:51px 10px 50px 43px;font-family:'Raleway',sans-serif;"
                                 align="left">
                                 <h1 class="v-text-align"
-                                  style="margin: 0px; color: #ffffff; line-height: 120%; text-align: left; word-wrap: break-word; font-size: 27px; font-weight: 400;">
-                                  <span><span><span><strong>Система оповещения!</strong></span></span></span>
+                                  style="margin: 0px; color: #117c5d; line-height: 120%; text-align: left; word-wrap: break-word; font-size: 27px; font-weight: 400;">
+                                  <span><span><span><strong>&nbsp;&nbsp;&nbsp;Система оповещения!</strong></span></span></span>
                                 </h1>
   
                               </td>
@@ -201,14 +202,12 @@ export const getHtmlStyle = (nameUser, nameField) => {
   
                                 <div class="v-text-align"
                                   style="font-size: 14px; line-height: 160%; text-align: left; word-wrap: break-word;">
-                                  <p style="line-height: 160%;"></p>
                                   <p style="line-height: 160%;"> </p>
-                                  <p style="line-height: 160%;"> </p>
-                                  <p style="line-height: 160%;"> </p>
-                                  <p style="line-height: 160%;"> </p>
-                                  <p style="line-height: 160%;"> </p>
-                                  <p style="line-height: 160%;"> </p>
-                                  <p style="line-height: 160%;">Для вашего здоровья предлагаем Вам пройти следующее обследование: <b>${nameField}</b>, чтобы Вы могли бы сделать это в профилактических целях</p>
+                                  <p style="line-height: 160%;">Для Вашего здоровья предлагаем Вам пройти следующее обследование: <b>${nameField}</b>, чтобы Вы могли бы сделать это в профилактических целях.</p>
+                                  <p style="line-height: 160%;">Предлагаем Вам следующее лечебно-профилактическое учреждение: <b>${hospital?.name}</b>, которое находится по адресу: <b>${hospital?.address}</b>.</p>
+                                  <p style="line-height: 160%;">Телефон регистратуры:
+                                  <a href="tel:${hospital?.phone}">
+                                  <b>${hospital?.phone}</b>.</p>
                                 </div>
   
                               </td>
@@ -324,6 +323,5 @@ export const getHtmlStyle = (nameUser, nameField) => {
   </body>
   
   </html>`
-
-    return htmlStyle
+  return htmlStyle
 }

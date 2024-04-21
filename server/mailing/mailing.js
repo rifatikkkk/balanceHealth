@@ -1,6 +1,7 @@
 import User from '../models/userModel.js'
 import nodemailer from 'nodemailer'
 import { getHtmlStyle } from './htmlStyle.js'
+import Hospital from '../models/hospitalModel.js'
 
 
 const transporter = nodemailer.createTransport({
@@ -11,6 +12,11 @@ const transporter = nodemailer.createTransport({
     }
 })
 
+// const getHospitals = async (district) => {
+//     // let hospitals = await Hospital.find({ district }) // all hospitals -> trouble with mailing
+//     let hospital = await Hospital.findOne({ district })
+//     return hospital
+// }
 
 export const checkMedbook = async () => {
     const date = new Date()
@@ -25,35 +31,39 @@ export const checkMedbook = async () => {
         Object.values(users[i].medbook).forEach((value, index) => {
             var diffrent = (date - value) / 31536000000     // (1000 / 60 / 60 / 24 / 365) --- 1 year
             if (diffrent > 1) {
-                sendMail(index, value, users[i].email, users[i].name)
-                console.log(index, value, diffrent, users[i].email, users[i].name)
+                sendMail(index, users[i].email, users[i].name, users[i].district)
+                // console.log(index, value, diffrent, users[i].email, users[i].name)
             }
         })
     }
 }
 
-const sendMail = (indexMedbook, valueMedbook, email, name) => {
+const sendMail = async (indexMedbook, email, name, district) => {
+    let hospital = await Hospital.findOne({ district })
+
     let letterDesign = ''
     switch (indexMedbook) {
         case 0:
-            letterDesign = getHtmlStyle(name, "Флюрография")
+            letterDesign = getHtmlStyle(name, "Флюрография", hospital)
             break;
         case 1:
-            letterDesign = getHtmlStyle(name, "Прививка от гриппа")
+            letterDesign = getHtmlStyle(name, "Прививка от гриппа", hospital)
             break;
         case 2:
-            letterDesign = getHtmlStyle(name, "Анализ крови")
+            letterDesign = getHtmlStyle(name, "Анализ крови", hospital)
             break;
         case 3:
-            letterDesign = getHtmlStyle(name, "Анализ мочи")
+            letterDesign = getHtmlStyle(name, "Анализ мочи", hospital)
             break;
         case 4:
-            letterDesign = getHtmlStyle(name, "ЭКГ")
+            letterDesign = getHtmlStyle(name, "ЭКГ", hospital)
             break;
 
         default:
             break;
     }
+
+    // console.log(letterDesign)
 
     const mailOptions = {
         from: process.env.EMAIL_ADDRESS,

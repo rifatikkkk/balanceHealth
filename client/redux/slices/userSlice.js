@@ -10,10 +10,10 @@ const initialState = {
 
 export const registerUser = createAsyncThunk(
     'user/registerUser',
-    async ({ email, name, password }) => {
+    async ({ email, name, password, district }) => {
         try {
             const { data } = await axios.post('/user/register', {
-                name, email, password
+                name, email, password, district
             })
             return data
         } catch (error) {

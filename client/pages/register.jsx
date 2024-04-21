@@ -14,6 +14,7 @@ const Register = () => {
     const [email, setEmail] = useState('')
     const [name, setName] = useState('')
     const [password, setPassword] = useState('')
+    const [district, setDisctrict] = useState('')
     const dispatch = useDispatch()
     const router = useRouter()
 
@@ -21,7 +22,7 @@ const Register = () => {
         try {
             console.log('register submit')
             e.preventDefault()
-            dispatch(registerUser({ email, name, password }))
+            dispatch(registerUser({ email, name, password, district }))
             setEmail('')
             setName('')
             setPassword('')
@@ -41,6 +42,7 @@ const Register = () => {
             <div className={styles.auth__form}>
                 <input type="text" placeholder='ФИО' onChange={(e) => setName(e.target.value)} />
                 <input type="text" placeholder='Почта' onChange={(e) => setEmail(e.target.value)} />
+                <input type="text" placeholder='Район' onChange={(e) => setDisctrict(e.target.value)} />
                 <input type="password" placeholder='Пароль' onChange={(e) => setPassword(e.target.value)} />
                 <button onClick={handleRegister}>Зарегистрировать</button>
                 <p>Имеется аккаунт? <Link className={styles.auth__form_link} href="/auth">Авторизоваться!</Link></p>

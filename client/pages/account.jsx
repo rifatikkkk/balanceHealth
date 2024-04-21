@@ -1,9 +1,10 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from '../styles/account.module.scss'
 import { useSelector } from 'react-redux'
-import Image from 'next/image'
-import logoUser from '../public/logoUser.png'
 import axios from '../utils/axios.js'
+import { useRouter } from 'next/router'
+import { logoutUser } from '../redux/slices/userSlice'
+import { useDispatch } from 'react-redux'
 
 
 
@@ -16,24 +17,44 @@ const Account = () => {
     const [urine, setUrine] = useState('')
     const [ecg, setEcg] = useState('')
 
+    const dispatch = useDispatch()
+    const router = useRouter()
+
+
+    const handleLogout = () => {
+        try {
+            dispatch(logoutUser())
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
     const handleCheckUps = async () => {
         try {
-            const data = await axios.post('/user/checkups', {
-                fluor: new Date(fluor),
-                influenza: new Date(influenza),
-                blood: new Date(blood),
-                urine: new Date(urine),
-                ecg: new Date(ecg),
-            })
 
-            if (data.status === 200)
-                alert("Данные успешно отправлены!")
+            if (fluor !== '' && influenza !== '' && blood !== '' && urine !== '' & ecg !== '') {
+                const data = await axios.post('/user/checkups', {
+                    fluor: new Date(fluor),
+                    influenza: new Date(influenza),
+                    blood: new Date(blood),
+                    urine: new Date(urine),
+                    ecg: new Date(ecg),
+                })
+
+                if (data.status === 200)
+                    alert("Данные успешно отправлены!")
+            }
+            else alert("Введите недостающие данные!")
+
 
         } catch (error) {
             console.log(error)
         }
     }
+
+    useEffect(() => {
+        if (!currentUser) router.push('/')
+    })
 
 
 
@@ -51,22 +72,40 @@ const Account = () => {
         <section className={styles.account}>
             <div className='wrapper'>
                 {currentUser ? (
-                    <div className={styles.account__form}>
-                        <div className={styles.account__form__content}>
-                            <Image src={logoUser} alt="logoUser" className={styles.account__form_img} />
-                            <h2>{currentUser.user.name}</h2>
-                        </div>
-                        <div className={styles.account__form__medbook}>
-                            <h1>Результаты обследований</h1>
-                            <div className={styles.account__form__medbook__date}>
-                                <input id='fluor' type="date" min="1940-01-01" max={getCurrentDate()} onChange={(e) => setFluor(e.target.value)} />
-                                <input id='influenza' type="date" min="1940-01-01" max={getCurrentDate()} onChange={(e) => setInfluenza(e.target.value)} />
-                                <input id='blood' type="date" min="1940-01-01" max={getCurrentDate()} onChange={(e) => setBlood(e.target.value)} />
-                                <input id='urine' type="date" min="1940-01-01" max={getCurrentDate()} onChange={(e) => setUrine(e.target.value)} />
-                                <input id='ecg' type="date" min="1940-01-01" max={getCurrentDate()} onChange={(e) => setEcg(e.target.value)} />
-                            </div>
+                    <div>
+                        <div className={styles.account__form}>
+                            <h1>Личный кабинет</h1>
+                            <p>ФИО: <b>{currentUser.user?.name}</b></p>
+                            <p>Почта: <b>{currentUser.user?.email}</b></p>
+                            <p>Район: <b>{currentUser.user?.district}</b></p>
+                            <div className={styles.account__form__medbook}>
+                                <h3 className={styles.account__form__medbook_title}>Результаты обследований</h3>
+                                <div className={styles.account__form__medbook__date}>
+                                    <div className={styles.account__form__medbook__content}>
+                                        <p>Флюрография</p>
+                                        <input id='fluor' type="date" min="1940-01-01" max={getCurrentDate()} onChange={(e) => setFluor(e.target.value)} />
+                                    </div>
+                                    <div className={styles.account__form__medbook__content}>
+                                        <p>Прививка от гриппа</p>
+                                        <input id='influenza' type="date" min="1940-01-01" max={getCurrentDate()} onChange={(e) => setInfluenza(e.target.value)} />
+                                    </div>
+                                    <div className={styles.account__form__medbook__content}>
+                                        <p>Анализ крови</p>
+                                        <input id='blood' type="date" min="1940-01-01" max={getCurrentDate()} onChange={(e) => setBlood(e.target.value)} />
+                                    </div>
+                                    <div className={styles.account__form__medbook__content}>
+                                        <p>Анализ мочи</p>
+                                        <input id='urine' type="date" min="1940-01-01" max={getCurrentDate()} onChange={(e) => setUrine(e.target.value)} />
+                                    </div>
+                                    <div className={styles.account__form__medbook__content}>
+                                        <p>ЭКГ</p>
+                                        <input id='ecg' type="date" min="1940-01-01" max={getCurrentDate()} onChange={(e) => setEcg(e.target.value)} />
+                                    </div>
+                                </div>
 
-                            <button onClick={handleCheckUps}>Отправить данные</button>
+                                <button className={styles.account__form_send} onClick={handleCheckUps}>Отправить данные</button>
+                            </div>
+                            <button className={styles.account__form_link} onClick={handleLogout}>Выйти из аккаунта</button>
                         </div>
                     </div>
                 ) : (

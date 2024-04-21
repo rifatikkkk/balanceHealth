@@ -21,6 +21,7 @@ const Register = () => {
     const handleRegister = async (e) => {
         try {
             console.log('register submit')
+            console.log(name, email, password, district)
             e.preventDefault()
             dispatch(registerUser({ email, name, password, district }))
             setEmail('')

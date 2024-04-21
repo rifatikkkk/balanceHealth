@@ -39,12 +39,11 @@ async function start() {
     try {
         await mongoose.connect(`mongodb+srv://${DB_USER}:${DB_PASSWORD}@${DB_CLUSTER}.lklmd0b.mongodb.net/${DB_NAME}?retryWrites=true&w=majority`)
         console.log('Server connected with DataBase');
-        // cron.schedule("0 0 0 * * *", () => {
-        // })
-        // updateHospital()
-        checkMedbook()
+        cron.schedule("0 0 0 * * *", () => {
+            updateHospital()
+            checkMedbook()
+        })
         app.listen(PORT, (req, res) => {
-            // var url = req.headers.host + '/' + req.url;
             console.log("Server started on " + PORT);
         })
     } catch (error) {

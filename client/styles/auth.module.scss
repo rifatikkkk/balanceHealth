@@ -1,0 +1,63 @@
+$color-background: var(--color-background);
+$color-soft: var(--color-soft);
+$color-brown: var(--color-brown);
+
+.auth {
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+    align-items: center;
+
+    h1 {
+        font-size: 32px;
+        font-weight: 700;
+        text-align: center;
+        color: black;
+    }
+
+    &__form {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        padding: 20px;
+        border-radius: 10px;
+        border: 1px solid black;
+        text-align: center;
+        
+        input[type="text"],
+        input[type="password"] {
+            border: 1px solid #bbb;
+            padding: 10px 0 10px 10px;
+            font-size: 20px;
+            min-width: 400px;
+
+            &:focus {
+                border: 1px solid #3498db;
+            }
+        }
+
+        button {
+            cursor: pointer;
+            padding: 14px;
+            border: 0;
+            border-radius: 24px;
+            color: #fff;
+            display: inline-block;
+            font-weight: bold;
+            font-size: 16px;
+            text-decoration: none;
+            position: relative;
+            background: $color-brown;
+        }
+
+        p {
+            font-size: 14px;
+        }
+
+        &_link {
+            color: $color-brown;
+            font-size: 16px;
+            text-decoration: none;
+        }
+    }
+}

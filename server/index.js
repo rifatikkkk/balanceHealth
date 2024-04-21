@@ -10,11 +10,16 @@ import cron from 'node-cron'
 import { checkMedbook } from './mailing/mailing.js'
 
 const app = express();
-dotenv.config();
 
+const corsOptions = {
+    origin: true,
+    credentials: true,
+}
+
+dotenv.config();
 // Middleware
-app.use(cors());
 app.use(express.json());
+app.use(cors(corsOptions));
 app.use(express.static('uploads'))
 app.use(cookieParser());
 
@@ -35,7 +40,7 @@ async function start() {
         console.log('Server connected with DataBase');
         // cron.schedule("0 0 0 * * *", () => {
         // })
-        checkMedbook()
+        // checkMedbook()
         app.listen(PORT, (req, res) => {
             // var url = req.headers.host + '/' + req.url;
             console.log("Server started on " + PORT);

@@ -4,11 +4,11 @@ import sendToken from '../utils/jwtToken.js'
 export const registerUser = async (req, res) => {
     const { name, password, email } = req.body
 
-    const userSearch = await User.findOne({ name })
+    const userSearch = await User.findOne({ email })
 
     if (userSearch) {
         return res.status(404).json({
-            message: "Пользователь с таким именем уже существует!",
+            message: "Пользователь с такой почтой уже существует!",
         })
     }
 
@@ -23,15 +23,15 @@ export const registerUser = async (req, res) => {
 }
 
 export const loginUser = async (req, res) => {
-    const { name, password } = req.body
+    const { email, password } = req.body
 
-    if (!name || !password) {
+    if (!email || !password) {
         return res.status(400).json({
-            message: "Пожалуйста, введите имя | пароль!",
+            message: "Пожалуйста, введите почту | пароль!",
         })
     }
 
-    const user = await User.findOne({ name }).select("+password")
+    const user = await User.findOne({ email }).select("+password")
     if (!user) {
         return res.status(404).json({
             message: "Пользователь не найден! Попробуйте еще раз!",
